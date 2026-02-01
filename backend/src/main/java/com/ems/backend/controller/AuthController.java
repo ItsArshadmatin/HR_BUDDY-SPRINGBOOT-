@@ -36,7 +36,7 @@ public class AuthController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
         final String token = jwtUtils.generateToken(userDetails);
 
-        com.ems.backend.model.User user = userRepository.findByEmail(request.getEmail())
+        com.ems.backend.model.User user = userRepository.findByEmailAndIsActiveTrue(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         return ResponseEntity.ok(new AuthResponse(token, user));

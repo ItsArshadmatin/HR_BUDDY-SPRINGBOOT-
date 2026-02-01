@@ -1,5 +1,5 @@
 # Build stage
-FROM maven:3.8.5-openjdk-17 AS build
+FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
@@ -7,7 +7,7 @@ RUN mvn clean package -DskipTests
 
 # Run stage
 # Use this for your run stage
-FROM eclipse-temurin:17-jdk-focal
+FROM eclipse-temurin:21-jdk
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 # Create uploads directory for file storage

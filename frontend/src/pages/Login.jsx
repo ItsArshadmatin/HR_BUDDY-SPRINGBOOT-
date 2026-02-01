@@ -109,7 +109,8 @@ const Login = () => {
                                 <p className="text-muted small">
                                     Demo Credentials:<br />
                                     <strong>Admin:</strong> admin@ems.com / password<br />
-                                    <strong>Employee:</strong> employee1@ems.com / password
+                                    <strong>HR:</strong> hr@ems.com / password<br />
+                                    <strong>Employee:</strong> alice.johnson@ems.com / password
                                 </p>
                             </div>
                         </Form>

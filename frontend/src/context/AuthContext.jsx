@@ -11,26 +11,29 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            try {
-                const decoded = jwtDecode(token);
-                setUser({ email: decoded.sub, role: decoded.role || 'TEST_ROLE' }); // Adjust based on your JWT payload structure
-                // Hint: You might need to update backend to include 'role' in claims explicitly if not there
-            } catch (e) {
-                console.error("Invalid token", e);
-                logout();
-            }
+            // Fetch fresh user details from backend
+            api.get('/users/me')
+                .then(res => {
+                    setUser(res.data);
+                })
+                .catch(err => {
+                    console.error("Failed to fetch user", err);
+                    logout();
+                })
+                .finally(() => setLoading(false));
+        } else {
+            setLoading(false);
         }
-        setLoading(false);
     }, []);
 
     const login = async (email, password) => {
         const response = await api.post('/auth/login', { email, password });
-        const { token } = response.data;
+        const { token, user } = response.data; // Now getting user object too
         localStorage.setItem('token', token);
-        const decoded = jwtDecode(token);
-        const userData = { email: decoded.sub, role: decoded.role };
-        setUser(userData);
-        return userData;
+
+        // Use the user object from response directly
+        setUser(user);
+        return user;
     };
 
     const logout = () => {

@@ -46,6 +46,8 @@ public class DataSeeder implements CommandLineRunner {
                 .salary(BigDecimal.valueOf(100000))
                 .leaveBalance(20)
                 .isActive(true)
+                .phone("555-ADMIN")
+                .address("100 Admin HQ, Suite 1")
                 .build();
         userRepository.save(admin);
 
@@ -59,6 +61,8 @@ public class DataSeeder implements CommandLineRunner {
                 .salary(BigDecimal.valueOf(90000))
                 .leaveBalance(20)
                 .isActive(true)
+                .phone("555-HR-001")
+                .address("200 HR Lane, Suite 2")
                 .build();
         userRepository.save(hr);
 
@@ -90,6 +94,8 @@ public class DataSeeder implements CommandLineRunner {
                     .salary(baseSalary)
                     .leaveBalance(15 + random.nextInt(10))
                     .isActive(true)
+                    .phone(String.format("555-01%02d", i))
+                    .address(String.format("%d Corporate Blvd, Suite %d", 100 + i, 200 + i))
                     .build();
             employees.add(emp);
         }

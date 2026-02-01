@@ -21,7 +21,9 @@ const Login = () => {
                 navigate('/dashboard');
             }
         } catch (err) {
-            setError('Invalid credentials');
+            console.error(err);
+            const msg = err.response?.data || err.message || 'Login failed';
+            setError(typeof msg === 'string' ? msg : JSON.stringify(msg));
         }
     };
 
